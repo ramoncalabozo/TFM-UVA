@@ -1,15 +1,18 @@
 import random
+import os;
 
-for i in range(1):
-    comando = "grasp settingsForwardBilog_2modos4long.yml input.file=sdata_RadAOD_4long.txt output.segment.stream=resultados/pruebaScript.txt"
+
+file = open("input.txt", "w")
+
+for i in range(10):
+    comando = "grasp settingsForwardBilog_2modos4long.yml input.file=sdata_RadAOD_4long.txt output.segment.stream=resultados/pruebaScript" + str(i) + ".txt"
     # CARACTERISITCA_1
     caracteristica1_radio1 = random.uniform(0.1, 0.7)
-    comando = comando + " retrieval.constraints.characteristic[1].mode[1].initial_guess.value.position[1]=" + str(caracteristica1_radio1) 
     caracteristica1_std1 = random.uniform(0.1, 0.9)
-    comando = comando +  " retrieval.constraints.characteristic[1].mode[1].initial_guess.value.position[2]=" + str(caracteristica1_std1)
-    caracteristica1_radio2 = random.uniform(0.1, 0.7)
+    comando = comando +  " retrieval.constraints.characteristic[1].mode[1].initial_guess.value=[" + str(caracteristica1_radio1) + "," + str(caracteristica1_std1) + "]"
+    caracteristica1_radio2 = random.uniform(0.7, 5.0)
     caracteristica1_std2 = random.uniform(0.1, 0.9)
-    # comando += " retrieval.constraints.characteristic[1].mode[2].initial_guess.value=" + str(caracteristica1_radio2) + ", " + str(caracteristica1_std2)
+    comando = comando +  " retrieval.constraints.characteristic[1].mode[2].initial_guess.value=[" + str(caracteristica1_radio2) + "," + str(caracteristica1_std2) + "]"
     # CARACTERISTICA_2
 
     # CARACTERISTICA_3
@@ -57,4 +60,7 @@ for i in range(1):
     caracteristica8_modo3_long4 = random.uniform(0.00099, 1.0)
 
     print(comando)
+    file.write(comando + os.linesep)
 
+
+file.close()
