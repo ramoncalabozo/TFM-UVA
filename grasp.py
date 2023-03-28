@@ -1,6 +1,7 @@
 import random
 import os
 import shutil
+from os import remove
 
 def sustituirfichero(temporal, caracteristicaSZA):
     fileSdataScript = open("sdata_Script.txt", "r")
@@ -26,7 +27,7 @@ if __name__ == '__main__':
     fileInput = open("input.txt", "w")
     fileRun = open("fileRun.txt", "w")
 
-    for i in range(1):    
+    for i in range(10):    
         temporal = "temporal" + str(i) + ".txt"
 
         # SZA
@@ -34,8 +35,8 @@ if __name__ == '__main__':
         res = 180 - caracteristicaSZA
         sustituirfichero(temporal, caracteristicaSZA)
         comando = "grasp settings.yml input.file=" + temporal +" output.segment.stream=resultados/output" + str(i) + ".txt"
-        parametros =  "caracteristica5_modo1 = " + str(caracteristicaSZA)
-    
+        parametros =  "SZA = " + str(caracteristicaSZA)
+        parametros =  parametros + " RES = " + str(res)
 
         # CARACTERISITCA_1
         caracteristica1_radio1 = random.uniform(0.1, 0.7)
@@ -115,10 +116,10 @@ if __name__ == '__main__':
         caracteristica8_modo3_long3 = random.uniform(0.00099, 1.0)
         caracteristica8_modo3_long4 = random.uniform(0.00099, 1.0)
 
-        #print(comando)
-
         fileRun.write(comando + os.linesep)
         fileInput.write(parametros + os.linesep)
+        os.system(comando)
+        remove(temporal)
 
     fileRun.close()
     fileInput.close()
