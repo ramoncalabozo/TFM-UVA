@@ -1,7 +1,7 @@
 import random
 import os
-import shutil
 from os import remove
+import numpy as np
 
 def sustituirfichero(temporal, caracteristicaSZA):
     fileSdataScript = open("sdata_Script.txt", "r")
@@ -22,8 +22,21 @@ def sustituirfichero(temporal, caracteristicaSZA):
         x = x.replace("RES",str(res))
         file.write(x)
 
-if __name__ == '__main__':
 
+def numeroAleatorioDistribucionLog(min, max):
+    log_min_val = np.log(min)
+    log_max_val = np.log(max)
+
+    r = np.random.uniform()
+    log_r = log_min_val + r * (log_max_val - log_min_val)
+    random_number = np.exp(log_r)
+    return random_number
+
+
+
+if __name__ == '__main__':
+    
+    # archivo con los parametros
     fileInput = open("input.txt", "w")
     fileRun = open("fileRun.txt", "w")
 
@@ -48,15 +61,16 @@ if __name__ == '__main__':
         caracteristica1_std2 = random.uniform(0.1, 0.9)
         comando = comando +  " retrieval.constraints.characteristic[1].mode[2].initial_guess.value=[" + str(caracteristica1_radio2) + "," + str(caracteristica1_std2) + "]"
         parametros = parametros + " caracteristica1_radio2 = " + str(caracteristica1_radio2) + " caracteristica1_std2 = " + str(caracteristica1_std2)
-    
         # CARACTERISTICA_2
-        # caracteristica2_modo1 = random.lognormvariate(media, desviacion estandar)
-        # comando = comando +  " retrieval.constraints.characteristic[2].mode[1].initial_guess.value=" + str(caracteristica2_modo1)
-        # parametros = parametros + " caracteristica2_modo1 = " + str(caracteristica2_modo1)
+        caracteristica2_modo1 = numeroAleatorioDistribucionLog(0.0005, 5.0)
+        comando = comando +  " retrieval.constraints.characteristic[2].mode[1].initial_guess.value=" + str(caracteristica2_modo1)
+        parametros = parametros + " caracteristica2_modo1 = " + str(caracteristica2_modo1)
+        print(caracteristica2_modo1)
 
-        # caracteristica2_modo2 = random.lognormvariate(media, desviacion estandar)
-        # comando = comando +  " retrieval.constraints.characteristic[2].mode[2].initial_guess.value=" + str(caracteristica2_modo2)
-        # parametros = parametros + " caracteristica2_modo2 = " + str(caracteristica2_modo2)
+        caracteristica2_modo2 = numeroAleatorioDistribucionLog(0.0005, 5.0)
+        comando = comando +  " retrieval.constraints.characteristic[2].mode[2].initial_guess.value=" + str(caracteristica2_modo2)
+        parametros = parametros + " caracteristica2_modo2 = " + str(caracteristica2_modo2)
+        print(caracteristica2_modo2)
 
         # CARACTERISTICA_3
         # TIENE QUE SER EL MISMO NÚMERO O DISTINTO?
