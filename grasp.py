@@ -1,20 +1,47 @@
 import random
-import os;
+import os
+import shutil
+
+def sustituirfichero(temporal, caracteristicaSZA):
+    fileSdataScript = open("sdata_Script.txt", "r")
+    fileTemporal = open(temporal, "w")
+    res = 180 - caracteristicaSZA 
+    
+    # Sustitución del atributo SZA
+    for line in fileSdataScript:
+        fileTemporal.write(line.replace('SZA', str(caracteristicaSZA)))
+    fileSdataScript.close() 
+    fileTemporal.close()
+    
+    # Sustitución del atributo RES
+    with open(temporal, "r+") as file:
+        x = file.read()
+        
+    with open(temporal, "w+") as file:
+        x = x.replace("RES",str(res))
+        file.write(x)
 
 if __name__ == '__main__':
 
     fileInput = open("input.txt", "w")
     fileRun = open("fileRun.txt", "w")
 
-    for i in range(10):
-        parametros= ""
-        comando = "grasp settingsForwardBilog_2modos4long.yml input.file=sdata_RadAOD_4long.txt output.segment.stream=resultados/pruebaScript" + str(i) + ".txt"
+    for i in range(1):    
+        temporal = "temporal" + str(i) + ".txt"
+
+        # SZA
+        caracteristicaSZA = random.randint(20,80)
+        res = 180 - caracteristicaSZA
+        sustituirfichero(temporal, caracteristicaSZA)
+        comando = "grasp settings.yml input.file=" + temporal +" output.segment.stream=resultados/output" + str(i) + ".txt"
+        parametros =  "caracteristica5_modo1 = " + str(caracteristicaSZA)
     
+
         # CARACTERISITCA_1
         caracteristica1_radio1 = random.uniform(0.1, 0.7)
         caracteristica1_std1 = random.uniform(0.1, 0.9)
         comando = comando +  " retrieval.constraints.characteristic[1].mode[1].initial_guess.value=[" + str(caracteristica1_radio1) + "," + str(caracteristica1_std1) + "]"
-        parametros = parametros + "caracteristica1_radio1 = " + str(caracteristica1_radio1) + " caracteristica1_std1 = " + str(caracteristica1_std1)
+        parametros = parametros + " caracteristica1_radio1 = " + str(caracteristica1_radio1) + " caracteristica1_std1 = " + str(caracteristica1_std1)
         
         caracteristica1_radio2 = random.uniform(0.7, 5.0)
         caracteristica1_std2 = random.uniform(0.1, 0.9)
@@ -22,8 +49,14 @@ if __name__ == '__main__':
         parametros = parametros + " caracteristica1_radio2 = " + str(caracteristica1_radio2) + " caracteristica1_std2 = " + str(caracteristica1_std2)
     
         # CARACTERISTICA_2
-        # PROBABILIDAD 
-        
+        # caracteristica2_modo1 = random.lognormvariate(media, desviacion estandar)
+        # comando = comando +  " retrieval.constraints.characteristic[2].mode[1].initial_guess.value=" + str(caracteristica2_modo1)
+        # parametros = parametros + " caracteristica2_modo1 = " + str(caracteristica2_modo1)
+
+        # caracteristica2_modo2 = random.lognormvariate(media, desviacion estandar)
+        # comando = comando +  " retrieval.constraints.characteristic[2].mode[2].initial_guess.value=" + str(caracteristica2_modo2)
+        # parametros = parametros + " caracteristica2_modo2 = " + str(caracteristica2_modo2)
+
         # CARACTERISTICA_3
         # TIENE QUE SER EL MISMO NÚMERO O DISTINTO?
         caracteristica3_modo1_long1 = random.uniform(1.33, 1.6) 
@@ -62,7 +95,10 @@ if __name__ == '__main__':
         parametros = parametros + " caracteristica6 = " + str(caracteristica6)
     
         # CARACTERISTICA_7
-        caracteristica6 = random.uniform(150, 50000)
+        caracteristica7 = random.uniform(150, 50000)
+        comando = comando + " retrieval.constraints.characteristic[7].mode[1].initial_guess.value="+ str(caracteristica7)
+        parametros = parametros + " caracteristica7 = " + str(caracteristica7)
+        
         # CARACTERISTICA_8
         caracteristica8_modo1_long1 = random.uniform(0.00099, 1.0) 
         caracteristica8_modo1_long2 = random.uniform(0.00099, 1.0) 
@@ -79,7 +115,7 @@ if __name__ == '__main__':
         caracteristica8_modo3_long3 = random.uniform(0.00099, 1.0)
         caracteristica8_modo3_long4 = random.uniform(0.00099, 1.0)
 
-        print(comando)
+        #print(comando)
 
         fileRun.write(comando + os.linesep)
         fileInput.write(parametros + os.linesep)
