@@ -61,40 +61,46 @@ if __name__ == '__main__':
         caracteristica1_std2 = random.uniform(0.1, 0.9)
         comando = comando +  " retrieval.constraints.characteristic[1].mode[2].initial_guess.value=[" + str(caracteristica1_radio2) + "," + str(caracteristica1_std2) + "]"
         parametros = parametros + " caracteristica1_radio2 = " + str(caracteristica1_radio2) + " caracteristica1_std2 = " + str(caracteristica1_std2)
+        
         # CARACTERISTICA_2
         caracteristica2_modo1 = numeroAleatorioDistribucionLog(0.0005, 5.0)
         comando = comando +  " retrieval.constraints.characteristic[2].mode[1].initial_guess.value=" + str(caracteristica2_modo1)
         parametros = parametros + " caracteristica2_modo1 = " + str(caracteristica2_modo1)
-        print(caracteristica2_modo1)
 
         caracteristica2_modo2 = numeroAleatorioDistribucionLog(0.0005, 5.0)
         comando = comando +  " retrieval.constraints.characteristic[2].mode[2].initial_guess.value=" + str(caracteristica2_modo2)
         parametros = parametros + " caracteristica2_modo2 = " + str(caracteristica2_modo2)
-        print(caracteristica2_modo2)
 
         # CARACTERISTICA_3
-        # TIENE QUE SER EL MISMO NÚMERO O DISTINTO?
         caracteristica3_modo1_long1 = random.uniform(1.33, 1.6) 
         caracteristica3_modo1_long2 = random.uniform(1.33, 1.6) 
         caracteristica3_modo1_long3 = random.uniform(1.33, 1.6) 
-        caracteristica3_modo1_long4 = random.uniform(1.33, 1.6) 
-        # TIENE QUE SER EL MISMO NÚMERO O DISTINTO?
+        caracteristica3_modo1_long4 = random.uniform(1.33, 1.6)
+        comando = comando +  " retrieval.constraints.characteristic[3].mode[1].initial_guess.value=[" + str(caracteristica3_modo1_long1) + "," + str(caracteristica3_modo1_long2) + "," +  str(caracteristica3_modo1_long3) + "," + str(caracteristica3_modo1_long4) + "]"
+        parametros = parametros + " caracteristica3_modo1_long1 = " + str(caracteristica3_modo1_long1) + " caracteristica3_modo1_long2 = " + str(caracteristica3_modo1_long2) + " caracteristica3_modo1_long3 = " + str(caracteristica3_modo1_long3) + " caracteristica3_modo1_long4 = " + str(caracteristica3_modo1_long4)
+        
         caracteristica3_modo2_long1 = random.uniform(1.33, 1.6) 
         caracteristica3_modo2_long2 = random.uniform(1.33, 1.6) 
         caracteristica3_modo2_long3 = random.uniform(1.33, 1.6) 
-        caracteristica3_modo2_long4 = random.uniform(1.33, 1.6) 
+        caracteristica3_modo2_long4 = random.uniform(1.33, 1.6)
+        comando = comando +  " retrieval.constraints.characteristic[3].mode[2].initial_guess.value=[" + str(caracteristica3_modo2_long1) + "," + str(caracteristica3_modo2_long2) + "," +  str(caracteristica3_modo2_long3) + "," + str(caracteristica3_modo2_long4) + "]" 
+        parametros = parametros + " caracteristica3_modo2_long1 = " + str(caracteristica3_modo2_long1) + " caracteristica3_modo2_long2 = " + str(caracteristica3_modo2_long2) + " caracteristica3_modo2_long3 = " + str(caracteristica3_modo2_long3) + " caracteristica3_modo2_long4 = " + str(caracteristica3_modo2_long4)
+        
         # CARACTERISTICA_4
-        # TIENE QUE SER EL MISMO NÚMERO O DISTINTO?
         caracteristica4_modo1_long1 = random.uniform(0.0005, 0.5)
         caracteristica4_modo1_long2 = random.uniform(0.0005, 0.5)
         caracteristica4_modo1_long3 = random.uniform(0.0005, 0.5)
         caracteristica4_modo1_long4 = random.uniform(0.0005, 0.5)
-        # TIENE QUE SER EL MISMO NÚMERO O DISTINTO?
+        comando = comando +  " retrieval.constraints.characteristic[4].mode[1].initial_guess.value=[" + str(caracteristica4_modo1_long1) + "," + str(caracteristica4_modo1_long2) + "," +  str(caracteristica4_modo1_long3) + "," + str(caracteristica4_modo1_long4) + "]"
+        parametros = parametros + " caracteristica4_modo1_long1 = " + str(caracteristica4_modo1_long1) + " caracteristica4_modo1_long2 = " + str(caracteristica4_modo1_long2) + " caracteristica4_modo1_long3 = " + str(caracteristica4_modo1_long3) + " caracteristica4_modo1_long4 = " + str(caracteristica4_modo1_long4)
+
         caracteristica4_modo2_long1 = random.uniform(0.0005, 0.5)
         caracteristica4_modo2_long2 = random.uniform(0.0005, 0.5) 
         caracteristica4_modo2_long3 = random.uniform(0.0005, 0.5) 
         caracteristica4_modo2_long4 = random.uniform(0.0005, 0.5) 
-        
+        comando = comando +  " retrieval.constraints.characteristic[4].mode[2].initial_guess.value=[" + str(caracteristica4_modo2_long1) + "," + str(caracteristica4_modo2_long2) + "," +  str(caracteristica4_modo2_long3) + "," + str(caracteristica4_modo2_long4) + "]"
+        parametros = parametros + " caracteristica4_modo2_long1 = " + str(caracteristica4_modo2_long1) + " caracteristica4_modo2_long2 = " + str(caracteristica4_modo2_long2) + " caracteristica4_modo2_long3 = " + str(caracteristica4_modo2_long3) + " caracteristica4_modo2_long4 = " + str(caracteristica4_modo2_long4)
+
         # CARACTERISTICA_5
         caracteristica5_modo1 = random.uniform(0.001, 1.0) 
         comando = comando + " retrieval.constraints.characteristic[5].mode[1].initial_guess.value="+ str(caracteristica5_modo1)
@@ -119,16 +125,22 @@ if __name__ == '__main__':
         caracteristica8_modo1_long2 = random.uniform(0.00099, 1.0) 
         caracteristica8_modo1_long3 = random.uniform(0.00099, 1.0) 
         caracteristica8_modo1_long4 = random.uniform(0.00099, 1.0) 
-        
+        comando = comando +  " retrieval.constraints.characteristic[8].mode[1].initial_guess.value=[" + str(caracteristica8_modo1_long1) + "," + str(caracteristica8_modo1_long2) + "," +  str(caracteristica8_modo1_long3) + "," + str(caracteristica8_modo1_long4) + "]"
+        parametros = parametros + " caracteristica8_modo1_long1 = " + str(caracteristica8_modo1_long1) + " caracteristica8_modo1_long2 = " + str(caracteristica8_modo1_long2) + " caracteristica8_modo1_long3 = " + str(caracteristica8_modo1_long3) + " caracteristica8_modo1_long4 = " + str(caracteristica8_modo1_long4)
+
         caracteristica8_modo2_long1 = random.uniform(0.00099, 1.0) 
         caracteristica8_modo2_long2 = random.uniform(0.00099, 1.0) 
         caracteristica8_modo2_long3 = random.uniform(0.00099, 1.0) 
         caracteristica8_modo2_long4 = random.uniform(0.00099, 1.0) 
-        
-        caracteristica8_modo3_long1 = random.uniform(0.00099, 1.0) 
-        caracteristica8_modo3_long2 = random.uniform(0.00099, 1.0)
-        caracteristica8_modo3_long3 = random.uniform(0.00099, 1.0)
-        caracteristica8_modo3_long4 = random.uniform(0.00099, 1.0)
+        comando = comando +  " retrieval.constraints.characteristic[8].mode[2].initial_guess.value=[" + str(caracteristica8_modo2_long1) + "," + str(caracteristica8_modo2_long2) + "," +  str(caracteristica8_modo2_long3) + "," + str(caracteristica8_modo2_long4) + "]"
+        parametros = parametros + " caracteristica8_modo2_long1 = " + str(caracteristica8_modo2_long1) + " caracteristica8_modo2_long2 = " + str(caracteristica8_modo2_long2) + " caracteristica8_modo2_long3 = " + str(caracteristica8_modo2_long3) + " caracteristica8_modo2_long4 = " + str(caracteristica8_modo2_long4)
+
+        caracteristica8_modo3_long1 = random.uniform(0.0005, 1.5) 
+        caracteristica8_modo3_long2 = random.uniform(0.0005, 1.5)
+        caracteristica8_modo3_long3 = random.uniform(0.0005, 1.5)
+        caracteristica8_modo3_long4 = random.uniform(0.0005, 1.5)
+        comando = comando +  " retrieval.constraints.characteristic[8].mode[3].initial_guess.value=[" + str(caracteristica8_modo3_long1) + "," + str(caracteristica8_modo3_long2) + "," +  str(caracteristica8_modo3_long3) + "," + str(caracteristica8_modo3_long4) + "]"
+        parametros = parametros + " caracteristica8_modo3_long1 = " + str(caracteristica8_modo3_long1) + " caracteristica8_modo3_long2 = " + str(caracteristica8_modo3_long2) + " caracteristica8_modo3_long3 = " + str(caracteristica8_modo3_long3) + " caracteristica8_modo3_long4 = " + str(caracteristica8_modo3_long4)
 
         fileRun.write(comando + os.linesep)
         fileInput.write(parametros + os.linesep)
