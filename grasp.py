@@ -87,17 +87,17 @@ if __name__ == '__main__':
         parametros = parametros + " caracteristica3_modo2_long1 = " + str(caracteristica3_modo2_long1) + " caracteristica3_modo2_long2 = " + str(caracteristica3_modo2_long2) + " caracteristica3_modo2_long3 = " + str(caracteristica3_modo2_long3) + " caracteristica3_modo2_long4 = " + str(caracteristica3_modo2_long4)
         
         # CARACTERISTICA_4
-        caracteristica4_modo1_long1 = random.uniform(0.0005, 0.5)
-        caracteristica4_modo1_long2 = random.uniform(0.0005, 0.5)
-        caracteristica4_modo1_long3 = random.uniform(0.0005, 0.5)
-        caracteristica4_modo1_long4 = random.uniform(0.0005, 0.5)
+        caracteristica4_modo1_long1 = numeroAleatorioDistribucionLog(0.0005, 0.5)
+        caracteristica4_modo1_long2 = numeroAleatorioDistribucionLog(0.0005, 0.5)
+        caracteristica4_modo1_long3 = numeroAleatorioDistribucionLog(0.0005, 0.5)
+        caracteristica4_modo1_long4 = numeroAleatorioDistribucionLog(0.0005, 0.5)
         comando = comando +  " retrieval.constraints.characteristic[4].mode[1].initial_guess.value=[" + str(caracteristica4_modo1_long1) + "," + str(caracteristica4_modo1_long2) + "," +  str(caracteristica4_modo1_long3) + "," + str(caracteristica4_modo1_long4) + "]"
         parametros = parametros + " caracteristica4_modo1_long1 = " + str(caracteristica4_modo1_long1) + " caracteristica4_modo1_long2 = " + str(caracteristica4_modo1_long2) + " caracteristica4_modo1_long3 = " + str(caracteristica4_modo1_long3) + " caracteristica4_modo1_long4 = " + str(caracteristica4_modo1_long4)
 
-        caracteristica4_modo2_long1 = random.uniform(0.0005, 0.5)
-        caracteristica4_modo2_long2 = random.uniform(0.0005, 0.5) 
-        caracteristica4_modo2_long3 = random.uniform(0.0005, 0.5) 
-        caracteristica4_modo2_long4 = random.uniform(0.0005, 0.5) 
+        caracteristica4_modo2_long1 = numeroAleatorioDistribucionLog(0.0005, 0.5)
+        caracteristica4_modo2_long2 = numeroAleatorioDistribucionLog(0.0005, 0.5) 
+        caracteristica4_modo2_long3 = numeroAleatorioDistribucionLog(0.0005, 0.5) 
+        caracteristica4_modo2_long4 = numeroAleatorioDistribucionLog(0.0005, 0.5) 
         comando = comando +  " retrieval.constraints.characteristic[4].mode[2].initial_guess.value=[" + str(caracteristica4_modo2_long1) + "," + str(caracteristica4_modo2_long2) + "," +  str(caracteristica4_modo2_long3) + "," + str(caracteristica4_modo2_long4) + "]"
         parametros = parametros + " caracteristica4_modo2_long1 = " + str(caracteristica4_modo2_long1) + " caracteristica4_modo2_long2 = " + str(caracteristica4_modo2_long2) + " caracteristica4_modo2_long3 = " + str(caracteristica4_modo2_long3) + " caracteristica4_modo2_long4 = " + str(caracteristica4_modo2_long4)
 
