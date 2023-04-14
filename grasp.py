@@ -3,11 +3,14 @@ import os
 from os import remove
 import numpy as np
 
-def sustituirfichero(temporal, caracteristicaSZA):
+def sustituirfichero(temporal, caracteristicaSZA, L1, L2, L3, L4):
     fileSdataScript = open("sdata_Script.txt", "r")
     fileTemporal = open(temporal, "w")
     res = 180 - caracteristicaSZA 
-    
+    longitud1 = L1
+    longitud2 = L2
+    longitud3 = L3
+    longitud4 = L4
     # Sustitución del atributo SZA
     for line in fileSdataScript:
         fileTemporal.write(line.replace('SZA', str(caracteristicaSZA)))
@@ -22,6 +25,38 @@ def sustituirfichero(temporal, caracteristicaSZA):
         x = x.replace("RES",str(res))
         file.write(x)
 
+    # Sustitución del atributo L1
+    with open(temporal, "r+") as file:
+        x = file.read()
+        
+    with open(temporal, "w+") as file:
+        x = x.replace("L1",str(longitud1))
+        file.write(x)
+
+ # Sustitución del atributo L2
+    with open(temporal, "r+") as file:
+        x = file.read()
+        
+    with open(temporal, "w+") as file:
+        x = x.replace("L2",str(longitud2))
+        file.write(x)
+
+    # Sustitución del atributo L3
+    with open(temporal, "r+") as file:
+        x = file.read()
+        
+    with open(temporal, "w+") as file:
+        x = x.replace("L3",str(longitud3))
+        file.write(x)
+
+ # Sustitución del atributo L4
+    with open(temporal, "r+") as file:
+        x = file.read()
+        
+    with open(temporal, "w+") as file:
+        x = x.replace("L4",str(longitud4))
+        file.write(x)
+
 
 def numeroAleatorioDistribucionLog(min, max):
     log_min_val = np.log(min)
@@ -32,33 +67,37 @@ def numeroAleatorioDistribucionLog(min, max):
     random_number = np.exp(log_r)
     return random_number
 
-
-
 if __name__ == '__main__':
     
     # archivo con los parametros
     fileInput = open("input.txt", "w")
     fileRun = open("fileRun.txt", "w")
 
-    for i in range(10):    
+    for i in range(10000):    
         temporal = "temporal" + str(i) + ".txt"
 
+        # Longitudes de HondaL1, L2, L3, L4
+        L1 = random.uniform(0.3, 2.5)
+        L2 = random.uniform(0.3, 2.5)
+        L3 = random.uniform(0.3, 2.5)
+        L4 = random.uniform(0.3, 2.5)
+
         # SZA
-        caracteristicaSZA = random.randint(20,80)
+        caracteristicaSZA = random.uniform(20,80)
         res = 180 - caracteristicaSZA
-        sustituirfichero(temporal, caracteristicaSZA)
+        sustituirfichero(temporal, caracteristicaSZA, L1, L2, L3, L4)
         comando = "grasp settings.yml input.file=" + temporal +" output.segment.stream=resultados/output" + str(i) + ".txt"
         parametros =  "SZA = " + str(caracteristicaSZA)
         parametros =  parametros + " RES = " + str(res)
 
         # CARACTERISITCA_1
-        caracteristica1_radio1 = random.uniform(0.1, 0.7)
-        caracteristica1_std1 = random.uniform(0.1, 0.9)
+        caracteristica1_radio1 = random.uniform(0.05, 0.7)
+        caracteristica1_std1 = random.uniform(0.05, 3.0)
         comando = comando +  " retrieval.constraints.characteristic[1].mode[1].initial_guess.value=[" + str(caracteristica1_radio1) + "," + str(caracteristica1_std1) + "]"
         parametros = parametros + " caracteristica1_radio1 = " + str(caracteristica1_radio1) + " caracteristica1_std1 = " + str(caracteristica1_std1)
         
-        caracteristica1_radio2 = random.uniform(0.7, 5.0)
-        caracteristica1_std2 = random.uniform(0.1, 0.9)
+        caracteristica1_radio2 = random.uniform(0.7, 10.0)
+        caracteristica1_std2 = random.uniform(0.05, 3.0)
         comando = comando +  " retrieval.constraints.characteristic[1].mode[2].initial_guess.value=[" + str(caracteristica1_radio2) + "," + str(caracteristica1_std2) + "]"
         parametros = parametros + " caracteristica1_radio2 = " + str(caracteristica1_radio2) + " caracteristica1_std2 = " + str(caracteristica1_std2)
         
