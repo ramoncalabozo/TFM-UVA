@@ -43,7 +43,7 @@ def read_output(outfile):
                     radioComponent2 = separacion[1].strip()
                 else :
                     sigmaComponent2 = separacion[1].strip()
-
+        
         carac = "Wavelength (um), AOD_Particle_mode_1 (unitless or 1/um)"
         if carac in line:
             for j in range(4):
@@ -78,25 +78,54 @@ def read_output(outfile):
                 else:
                     aod_mode_2_L4 = separacion[1].strip()
       
+        carac = "Wavelength (um), SSA_Particle_mode_1"
+        if carac in line:
+            for j in range(4):
+                i+=1
+                line=content[i].strip()
+                separacion = line.split("   ")
+                if j == 0 :
+                    ssa_mode_1_L1  = separacion[1].strip()
+                elif j == 1 :
+                    ssa_mode_1_L2 = separacion[1].strip()
+                elif j == 2 :
+                    ssa_mode_1_L3 = separacion[1].strip()
+                else:
+                    ssa_mode_1_L4 = separacion[1].strip()
+
+        carac = "Wavelength (um), SSA_Particle_mode_2"
+        if carac in line:
+            for j in range(4):
+                i+=1
+                line=content[i].strip()
+                separacion = line.split("   ")
+                if j == 0 :
+                    ssa_mode_2_L1  = separacion[1].strip()
+                elif j == 1 :
+                    ssa_mode_2_L2 = separacion[1].strip()
+                elif j == 2 :
+                    ssa_mode_2_L3 = separacion[1].strip()
+                else:
+                    ssa_mode_2_L4 = separacion[1].strip()
         
 
     # Modo 1 -- L1
-    dataset =  str(radioComponent1) + " " + str(sigmaComponent1) + " " + str(L1) + " " + str(aod_mode_1_L1)  + "\n"
+    dataset =  str(radioComponent1) + " " + str(sigmaComponent1) + " " + str(L1) + " " + str(aod_mode_1_L1)  + " " + str(ssa_mode_1_L1) + "\n"
     # Modo 1 -- L2
-    dataset += str(radioComponent1) + " " + str(sigmaComponent1) + " " + str(L2) + " " + str(aod_mode_1_L2)  + "\n"
+    dataset += str(radioComponent1) + " " + str(sigmaComponent1) + " " + str(L2) + " " + str(aod_mode_1_L2) + " " + str(ssa_mode_1_L2) + "\n"
     # Modo 1 -- L3
-    dataset += str(radioComponent1) + " " + str(sigmaComponent1) + " " + str(L3) + " " + str(aod_mode_1_L3)  + "\n"
+    dataset += str(radioComponent1) + " " + str(sigmaComponent1) + " " + str(L3) + " " + str(aod_mode_1_L3) + " " + str(ssa_mode_1_L3) + "\n"
     # Modo 1 -- L4
-    dataset += str(radioComponent1) + " " + str(sigmaComponent1) + " " + str(L4) + " " + str(aod_mode_1_L4)  + "\n"
+    dataset += str(radioComponent1) + " " + str(sigmaComponent1) + " " + str(L4) + " " + str(aod_mode_1_L4) + " " + str(ssa_mode_1_L4) + "\n"
     
     # Modo 2 -- L1
-    dataset +=  str(radioComponent2) + " " + str(sigmaComponent2) + " " + str(L1) + " " + str(aod_mode_2_L1)  + "\n"
+    dataset +=  str(radioComponent2) + " " + str(sigmaComponent2) + " " + str(L1) + " " + str(aod_mode_2_L1) + " " + str(ssa_mode_2_L1) + "\n"
     # Modo 2 -- L2
-    dataset += str(radioComponent2) + " " + str(sigmaComponent2) + " " + str(L2) + " " + str(aod_mode_2_L2)  + "\n"
+    dataset += str(radioComponent2) + " " + str(sigmaComponent2) + " " + str(L2) + " " + str(aod_mode_2_L2) + " " + str(ssa_mode_2_L2) + "\n"
     # Modo 2 -- L3
-    dataset += str(radioComponent2) + " " + str(sigmaComponent2) + " " + str(L3) + " " + str(aod_mode_2_L3)  + "\n"
+    dataset += str(radioComponent2) + " " + str(sigmaComponent2) + " " + str(L3) + " " + str(aod_mode_2_L3) + " " + str(ssa_mode_2_L3) + "\n"
     # Modo 2 -- L4
-    dataset += str(radioComponent2) + " " + str(sigmaComponent2) + " " + str(L4) + " " + str(aod_mode_2_L4)  + "\n"    
+    dataset += str(radioComponent2) + " " + str(sigmaComponent2) + " " + str(L4) + " " + str(aod_mode_2_L4) + " " + str(ssa_mode_2_L4) + "\n"    
     
     return dataset 
 
@@ -106,7 +135,6 @@ if __name__ == '__main__':
         output = "resultados/output"
         output = output + str(i) + ".txt"
         lecturaDataSet = read_output(output)
-        print(lecturaDataSet)
         fileDataset.write(lecturaDataSet + os.linesep)
 
     fileDataset.close()
