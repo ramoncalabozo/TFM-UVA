@@ -89,6 +89,10 @@ if __name__ == '__main__':
         comando = "grasp settings.yml input.file=" + temporal +" output.segment.stream=resultados/output" + str(i).rjust(4,'0') + ".txt"
         parametros =  "SZA = " + str(caracteristicaSZA)
         parametros =  parametros + " RES = " + str(res)
+        parametros =  parametros + " L1 = " + str(L1)
+        parametros =  parametros + " L2 = " + str(L2)
+        parametros =  parametros + " L3 = " + str(L3)
+        parametros =  parametros + " L4 = " + str(L4)
 
         # CARACTERISITCA_1
         caracteristica1_radio1 = random.uniform(0.05, 0.7)
