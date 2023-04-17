@@ -67,20 +67,30 @@ def numeroAleatorioDistribucionLog(min, max):
     random_number = np.exp(log_r)
     return random_number
 
+
+def numerosAleatoriosArrayOrdenado(min, max):
+    longitudes = []
+    for i in range (4):
+        longitudes.append(random.uniform(min, max))
+    longitudes.sort()
+    return longitudes
+    
+
 if __name__ == '__main__':
     
     # archivo con los parametros
     fileInput = open("input.txt", "w")
     fileRun = open("fileRun.txt", "w")
 
-    for i in range(10000):    
+    for i in range(25):    
         temporal = "temporal" + str(i) + ".txt"
 
         # Longitudes de HondaL1, L2, L3, L4
-        L1 = random.uniform(0.3, 2.5)
-        L2 = random.uniform(0.3, 2.5)
-        L3 = random.uniform(0.3, 2.5)
-        L4 = random.uniform(0.3, 2.5)
+        longitudes = numerosAleatoriosArrayOrdenado(0.3, 2.5)
+        L1 = longitudes[0]
+        L2 = longitudes[1]
+        L3 = longitudes[2]
+        L4 = longitudes[3]
 
         # SZA
         caracteristicaSZA = random.uniform(20,80)
@@ -171,10 +181,10 @@ if __name__ == '__main__':
         comando = comando +  " retrieval.constraints.characteristic[8].mode[1].initial_guess.value=[" + str(caracteristica8_modo1_long1) + "," + str(caracteristica8_modo1_long2) + "," +  str(caracteristica8_modo1_long3) + "," + str(caracteristica8_modo1_long4) + "]"
         parametros = parametros + " caracteristica8_modo1_long1 = " + str(caracteristica8_modo1_long1) + " caracteristica8_modo1_long2 = " + str(caracteristica8_modo1_long2) + " caracteristica8_modo1_long3 = " + str(caracteristica8_modo1_long3) + " caracteristica8_modo1_long4 = " + str(caracteristica8_modo1_long4)
 
-        caracteristica8_modo2_long1 = random.uniform(0.00099, 1.0) 
-        caracteristica8_modo2_long2 = random.uniform(0.00099, 1.0) 
-        caracteristica8_modo2_long3 = random.uniform(0.00099, 1.0) 
-        caracteristica8_modo2_long4 = random.uniform(0.00099, 1.0) 
+        caracteristica8_modo2_long1 = random.uniform(0.00099, 0.8) 
+        caracteristica8_modo2_long2 = random.uniform(0.00099, 0.8) 
+        caracteristica8_modo2_long3 = random.uniform(0.00099, 0.8) 
+        caracteristica8_modo2_long4 = random.uniform(0.00099, 0.8) 
         comando = comando +  " retrieval.constraints.characteristic[8].mode[2].initial_guess.value=[" + str(caracteristica8_modo2_long1) + "," + str(caracteristica8_modo2_long2) + "," +  str(caracteristica8_modo2_long3) + "," + str(caracteristica8_modo2_long4) + "]"
         parametros = parametros + " caracteristica8_modo2_long1 = " + str(caracteristica8_modo2_long1) + " caracteristica8_modo2_long2 = " + str(caracteristica8_modo2_long2) + " caracteristica8_modo2_long3 = " + str(caracteristica8_modo2_long3) + " caracteristica8_modo2_long4 = " + str(caracteristica8_modo2_long4)
 
