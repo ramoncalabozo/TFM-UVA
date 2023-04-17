@@ -2,14 +2,7 @@ import numpy as np
 import os
 
 def read_output(outfile):
-    
-    ssa_mode_1_L1 = ""
-    ssa_mode_2_L1 = ""
-    g = ""
-
-
-    dataset = ""
-    
+        
     # archivo con los datos, para luego el entrenamiento y la evaluación
     with open(outfile) as f:
         content = f.readlines()
@@ -131,13 +124,18 @@ def read_output(outfile):
 
 if __name__ == '__main__':
     fileDataset = open("dataset.txt", "w")
-    for i in range(1):
+    fileErroresGrasp = open("fileErroresGrasp.txt", "w")
+    for i in range(1000):
         output = "resultados/output"
-        output = output + str(i) + ".txt"
-        lecturaDataSet = read_output(output)
-        fileDataset.write(lecturaDataSet + os.linesep)
+        output = output + str(i).rjust(4,'0') + ".txt"
+        try:
+            lecturaDataSet = read_output(output)
+            fileDataset.write(lecturaDataSet + os.linesep)
+        except:
+            fileErroresGrasp.write("Error " + str(i).rjust(4,'0') + ".txt " + os.linesep)
 
     fileDataset.close()
+    fileErroresGrasp.close()
         
 
 
