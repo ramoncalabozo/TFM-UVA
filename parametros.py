@@ -198,9 +198,8 @@ def read_output(outfile):
                 i+=1
                 line=content[i]
                 if np.logical_not(line[0].isdigit()):   
-                    print(line)
+                    #print(line)
                     asimetria=np.trapz(np.cos(scat)*np.sin(scat)*fase,scat)/2
-                        
                     Asym.append(asimetria)
                     conta=conta+1
                     fase=[]
@@ -217,22 +216,22 @@ def read_output(outfile):
 
 
     # Modo 1 -- L1
-    dataset =  str(radioComponent1) + " " + str(sigmaComponent1) + " " + str(esfericidadComponent1) + " " + str(concentracionComponent1) + " "  + " " + str(L1) + " " + str(indRefReal_mode1_L1) + " " + str(indRefImag_mode1_L1) +  " --- " + str(aod_mode_1_L1)  + " " + str(ssa_mode_1_L1) + str(Asym[0]) + "\n"
+    dataset =  str(radioComponent1) + " " + str(sigmaComponent1) + " " + str(esfericidadComponent1) + " " + str(concentracionComponent1) + " " + " " + str(L1) + " " + str(indRefReal_mode1_L1) + " " + str(indRefImag_mode1_L1) + " --- " + str(aod_mode_1_L1) + " " + str(ssa_mode_1_L1) + " " + str(Asym[0]) + "\n"
     # Modo 1 -- L2
-    dataset += str(radioComponent1) + " " + str(sigmaComponent1) + " " + str(esfericidadComponent1) + " " + str(concentracionComponent1) + " " + " " + str(L2) + " " + str(indRefReal_mode1_L2) + " " + str(indRefImag_mode1_L2) + " --- " + str(aod_mode_1_L2) + " " + str(ssa_mode_1_L2) + str(Asym[2]) + "\n"
+    dataset += str(radioComponent1) + " " + str(sigmaComponent1) + " " + str(esfericidadComponent1) + " " + str(concentracionComponent1) + " " + " " + str(L2) + " " + str(indRefReal_mode1_L2) + " " + str(indRefImag_mode1_L2) + " --- " + str(aod_mode_1_L2) + " " + str(ssa_mode_1_L2) + " " + str(Asym[2]) + "\n"
     # Modo 1 -- L3
-    dataset += str(radioComponent1) + " " + str(sigmaComponent1) + " " + str(esfericidadComponent1) + " " + str(concentracionComponent1) + " " + " " + str(L3) + " " + str(indRefReal_mode1_L3) + " " + str(indRefImag_mode1_L3) + " --- " + str(aod_mode_1_L3) + " " + str(ssa_mode_1_L3) + str(Asym[4]) + "\n"
+    dataset += str(radioComponent1) + " " + str(sigmaComponent1) + " " + str(esfericidadComponent1) + " " + str(concentracionComponent1) + " " + " " + str(L3) + " " + str(indRefReal_mode1_L3) + " " + str(indRefImag_mode1_L3) + " --- " + str(aod_mode_1_L3) + " " + str(ssa_mode_1_L3) + " " + str(Asym[4]) + "\n"
     # Modo 1 -- L4
-    dataset += str(radioComponent1) + " " + str(sigmaComponent1) + " " + str(esfericidadComponent1) + " " + str(concentracionComponent1) + " " + " " + str(L4) + " " + str(indRefReal_mode1_L4) + " " + str(indRefimag_mode1_L4) + " --- " + str(aod_mode_1_L4) + " " + str(ssa_mode_1_L4) + str(Asym[6]) + "\n"
+    dataset += str(radioComponent1) + " " + str(sigmaComponent1) + " " + str(esfericidadComponent1) + " " + str(concentracionComponent1) + " " + " " + str(L4) + " " + str(indRefReal_mode1_L4) + " " + str(indRefimag_mode1_L4) + " --- " + str(aod_mode_1_L4) + " " + str(ssa_mode_1_L4) + " " + str(Asym[6]) + "\n"
     
     # Modo 2 -- L1
-    dataset +=  str(radioComponent2) + " " + str(sigmaComponent2) + " " + str(esfericidadComponent2) + " " + str(concentracionComponent2) + " " + " " + str(L1) + " " + str(indRefReal_mode2_L1) + " " + str(indRefImag_mode2_L1) + " --- " + str(aod_mode_2_L1) + " " + str(ssa_mode_2_L1) + str(Asym[1]) + "\n"
+    dataset += str(radioComponent2) + " " + str(sigmaComponent2) + " " + str(esfericidadComponent2) + " " + str(concentracionComponent2) + " " + " " + str(L1) + " " + str(indRefReal_mode2_L1) + " " + str(indRefImag_mode2_L1) + " --- " + str(aod_mode_2_L1) + " " + str(ssa_mode_2_L1) + " " + str(Asym[1]) + "\n"
     # Modo 2 -- L2
-    dataset += str(radioComponent2) + " " + str(sigmaComponent2) + " " + str(esfericidadComponent2) + " " + str(concentracionComponent2) + " "  + " " + str(L2) + " " + str(indRefReal_mode2_L2) + " " + str(indRefImag_mode2_L2) + " --- " + str(aod_mode_2_L2) + " " + str(ssa_mode_2_L2) + str(Asym[3]) + "\n"
+    dataset += str(radioComponent2) + " " + str(sigmaComponent2) + " " + str(esfericidadComponent2) + " " + str(concentracionComponent2) + " " + " " + str(L2) + " " + str(indRefReal_mode2_L2) + " " + str(indRefImag_mode2_L2) + " --- " + str(aod_mode_2_L2) + " " + str(ssa_mode_2_L2) + " " + str(Asym[3]) + "\n"
     # Modo 2 -- L3
-    dataset += str(radioComponent2) + " " + str(sigmaComponent2) + " " + str(esfericidadComponent2) + " " + str(concentracionComponent2) + " "  + " " + str(L3) + " " + str(indRefReal_mode2_L3) + " " + str(indRefImag_mode2_L3) + " --- " + str(aod_mode_2_L3) + " " + str(ssa_mode_2_L3) + str(Asym[5]) + "\n"
+    dataset += str(radioComponent2) + " " + str(sigmaComponent2) + " " + str(esfericidadComponent2) + " " + str(concentracionComponent2) + " " + " " + str(L3) + " " + str(indRefReal_mode2_L3) + " " + str(indRefImag_mode2_L3) + " --- " + str(aod_mode_2_L3) + " " + str(ssa_mode_2_L3) + " " + str(Asym[5]) + "\n"
     # Modo 2 -- L4
-    dataset += str(radioComponent2) + " " + str(sigmaComponent2) + " " + str(esfericidadComponent2) + " " + str(concentracionComponent2) + " "  + " " + str(L4) + " " + str(indRefReal_mode2_L4) + " " + str(indRefImag_mode2_L4) + " --- " + str(aod_mode_2_L4) + " " + str(ssa_mode_2_L4) + str(Asym[7])    
+    dataset += str(radioComponent2) + " " + str(sigmaComponent2) + " " + str(esfericidadComponent2) + " " + str(concentracionComponent2) + " " + " " + str(L4) + " " + str(indRefReal_mode2_L4) + " " + str(indRefImag_mode2_L4) + " --- " + str(aod_mode_2_L4) + " " + str(ssa_mode_2_L4) + " " + str(Asym[7])    
     
     return dataset 
 
