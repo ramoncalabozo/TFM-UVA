@@ -194,20 +194,24 @@ def read_output(outfile):
             Asym=[]
             i=i+4
             conta=0
+            j = 0
             while True:
                 i+=1
                 line=content[i]
                 if np.logical_not(line[0].isdigit()):   
-                    #print(line)
-                    asimetria=np.trapz(np.cos(scat)*np.sin(scat)*fase,scat)/2
-                    Asym.append(asimetria)
+                    if j != 0:
+                        asimetria=np.trapz(np.cos(scat)*np.sin(scat)*fase,scat)/2
+                        Asym.append(asimetria)
                     conta=conta+1
                     fase=[]
                     scat=[]
                     
                     if line[0]=='-':
+                        asimetria=np.trapz(np.cos(scat)*np.sin(scat)*fase,scat)/2
+                        Asym.append(asimetria)
                         break
                     i+=1
+                    j+=1
                     continue
 
                 line=line.split()
@@ -238,7 +242,7 @@ def read_output(outfile):
 if __name__ == '__main__':
     fileDataset = open("dataset.txt", "w")
     erroresGrasp = open("erroresGrasp.txt", "w")
-    for i in range(25):
+    for i in range(500):
         output = "resultados/output"
         output = output + str(i).rjust(4,'0') + ".txt"
         try:
