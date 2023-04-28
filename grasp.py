@@ -96,7 +96,7 @@ if __name__ == '__main__':
         caracteristicaSZA = random.uniform(20,80)
         res = 180 - caracteristicaSZA
         sustituirfichero(temporal, caracteristicaSZA, L1, L2, L3, L4)
-        comando = "grasp settings.yml input.file=" + temporal +" output.segment.stream=resultados/output" + str(i).rjust(4,'0') + ".txt"
+        comando = "grasp settings.yml input.file=" + temporal +" output.segment.stream=resultados/output" + str(i).rjust(5,'0') + ".txt"
         parametros =  "SZA = " + str(caracteristicaSZA)
         parametros =  parametros + " RES = " + str(res)
         parametros =  parametros + " L1 = " + str(L1)

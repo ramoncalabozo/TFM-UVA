@@ -244,12 +244,12 @@ if __name__ == '__main__':
     erroresGrasp = open("erroresGrasp.txt", "w")
     for i in range(50000):
         output = "resultados/output"
-        output = output + str(i).rjust(4,'0') + ".txt"
+        output = output + str(i).rjust(5,'0') + ".txt"
         try:
             lecturaDataSet = read_output(output)
             fileDataset.write(lecturaDataSet + os.linesep)
         except:
-            erroresGrasp.write("Error " + str(i).rjust(4,'0') + ".txt " + os.linesep)
+            erroresGrasp.write("Error " + str(i).rjust(5,'0') + ".txt " + os.linesep)
 
     fileDataset.close()
     erroresGrasp.close()
