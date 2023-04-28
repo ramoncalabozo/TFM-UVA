@@ -242,7 +242,7 @@ def read_output(outfile):
 if __name__ == '__main__':
     fileDataset = open("dataset.txt", "w")
     erroresGrasp = open("erroresGrasp.txt", "w")
-    for i in range(500):
+    for i in range(50000):
         output = "resultados/output"
         output = output + str(i).rjust(4,'0') + ".txt"
         try:

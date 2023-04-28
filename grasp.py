@@ -82,7 +82,7 @@ if __name__ == '__main__':
     fileInput = open("input.txt", "w")
     fileRun = open("fileRun.txt", "w")
 
-    for i in range(500):    
+    for i in range(50000):    
         temporal = "temporal" + str(i) + ".txt"
 
         # Longitudes de HondaL1, L2, L3, L4
