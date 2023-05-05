@@ -249,7 +249,7 @@ if __name__ == '__main__':
             lecturaDataSet = read_output(output)
             fileDataset.write(lecturaDataSet)
         except:
-            erroresGrasp.write("Error " + str(i).rjust(5,'0') + ".txt " + os.linesep)
+            erroresGrasp.write("Error " + str(i).rjust(5,'0') + ".txt\n")
 
     fileDataset.close()
     erroresGrasp.close()
