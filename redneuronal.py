@@ -2,7 +2,7 @@ import tensorflow as tf
 from tensorflow import keras
 import numpy as np
 
-NUM = 372360
+NUM = 372360 - 33995  # Numero de registros reales -  el numero de registros con aod < 2
 
 def crearModelo(entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTest):
 
@@ -50,7 +50,7 @@ def recolectarDatos(archivoDataSet):
     fileData = open(archivoDataSet, "r")
     content = fileData.readlines()
 
-    j = 0
+    j = 1
     for line in content:
         entrada = []
         salida = []
@@ -72,7 +72,8 @@ def recolectarDatos(archivoDataSet):
             else:
                 entradaTest.append(entrada)
                 salidaTest.append(salida)
-        j = j + 1  
+            
+            j = j + 1  
 
     entradaEntrenamiento = np.array(entradaEntrenamiento)
     salidaEntrenamiento = np.array(salidaEntrenamiento)
