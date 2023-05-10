@@ -41,7 +41,7 @@ def crearModelo(entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTe
     print("Test_accuracy: " +  str(test_acc) + "\n" + "Test_losser " + str(test_loss))
           
 
-def datosEntrada(archivoDataSet):
+def recolectarDatos(archivoDataSet):
     numEntrenamiento = NUM * 0.8
     entradaEntrenamiento = []
     salidaEntrenamiento = []
@@ -79,10 +79,10 @@ def datosEntrada(archivoDataSet):
     return entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTest
 
 
-def normalizarDatos(entrada):
+def normalizarDatosEntradas(entrada):
     radioComponent1Max = 0.7
     sigmaComponent1Max = 3.0
-    esfericidadComponent1Max = 1.0
+    esfericidadComponent1Max = 100
     concentracionComponent1Max = 5.0
 
     indRefReal_mode1_L1Max = 1.6
@@ -97,7 +97,7 @@ def normalizarDatos(entrada):
 
     radioComponent2Max = 10.0
     sigmaComponent2Max = 3.0
-    esfericidadComponent2Max = 1.0
+    esfericidadComponent2Max = 100
     concentracionComponent2Max = 5.0
 
     indRefReal_mode2_L1Max = 1.6
@@ -165,10 +165,21 @@ def normalizarDatos(entrada):
     
     return entrada
 
+
+def normalizarDatosSalida(salida):
+    aodMax = 65.628
+    for i in range(len(salida)):        
+       salida[i][0] = salida[i][0] / aodMax
+       
+    return salida
+
+
 if __name__ == '__main__':
     archivoDataSet = "dataset.txt"
-    entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTest = datosEntrada(archivoDataSet)
-    entradaEntrenamientoNorm = normalizarDatos(entradaEntrenamiento)
-    entradaTestNorm = normalizarDatos(entradaTest)
-    modeloEntrenado = crearModelo(entradaEntrenamientoNorm, salidaEntrenamiento, entradaTestNorm, salidaTest)
+    entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTest = recolectarDatos(archivoDataSet)
+    entradaEntrenamientoNorm = normalizarDatosEntradas(entradaEntrenamiento)
+    entradaTestNorm = normalizarDatosEntradas(entradaTest)
+    salidaEntrenamientoNorm = normalizarDatosSalida(salidaEntrenamiento)
+    salidaTestNorm = normalizarDatosSalida(salidaTest)
+    modeloEntrenado = crearModelo(entradaEntrenamientoNorm, salidaEntrenamientoNorm, entradaTestNorm, salidaTestNorm)
 
