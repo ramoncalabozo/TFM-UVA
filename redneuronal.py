@@ -57,19 +57,21 @@ def recolectarDatos(archivoDataSet):
         line = line.replace("\n","")
         divisionEntradaSalida = line.split(" --- ")
         parametrosEntrada = divisionEntradaSalida[0].split(" ")
-        for i in range(7):
-            entrada.append(float(parametrosEntrada[i]))
-
         parametrosSalida = divisionEntradaSalida[1].split(" ")
-        for i in range(3):
-            salida.append(float(parametrosSalida[i]))
+        
+        if float(parametrosSalida[0]) < 2:
+            for i in range(7):
+                entrada.append(float(parametrosEntrada[i]))
 
-        if j < numEntrenamiento:
-            entradaEntrenamiento.append(entrada)
-            salidaEntrenamiento.append(salida)
-        else:
-            entradaTest.append(entrada)
-            salidaTest.append(salida)
+            for i in range(3):
+                salida.append(float(parametrosSalida[i]))
+
+            if j < numEntrenamiento:
+                entradaEntrenamiento.append(entrada)
+                salidaEntrenamiento.append(salida)
+            else:
+                entradaTest.append(entrada)
+                salidaTest.append(salida)
         j = j + 1  
 
     entradaEntrenamiento = np.array(entradaEntrenamiento)
@@ -167,7 +169,7 @@ def normalizarDatosEntradas(entrada):
 
 
 def normalizarDatosSalida(salida):
-    aodMax = 65.628
+    aodMax = 2
     for i in range(len(salida)):        
        salida[i][0] = salida[i][0] / aodMax
        
