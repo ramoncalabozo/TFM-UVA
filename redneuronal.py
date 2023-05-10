@@ -2,8 +2,6 @@ import tensorflow as tf
 from tensorflow import keras
 import numpy as np
 
-NUM = 372360 - 33995  # Numero de registros reales -  el numero de registros con aod < 2
-
 def crearModelo(entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTest):
 
     # Crear el modelo de red neuronal
@@ -41,8 +39,7 @@ def crearModelo(entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTe
     print("Test_accuracy: " +  str(test_acc) + "\n" + "Test_losser " + str(test_loss))
           
 
-def recolectarDatos(archivoDataSet):
-    numEntrenamiento = NUM * 0.8
+def recolectarDatos(archivoDataSet, numEntrenamiento):
     entradaEntrenamiento = []
     salidaEntrenamiento = []
     entradaTest = []
@@ -187,12 +184,18 @@ def normalizarDatosSalida(salida):
 
 if __name__ == '__main__':
     archivoDataSet = "dataset.txt"
-    entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTest, aodMay2 = recolectarDatos(archivoDataSet)
+    
+    numeroEntrenamiento = 372360 - 33995  # Numero de registros reales -  el numero de registros con aod < 2
+    modulo = numeroEntrenamiento % 8
+    numEntrenamiento = numeroEntrenamiento + (8 - modulo)
+    
+    entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTest, aodMay2 = recolectarDatos(archivoDataSet, numeroEntrenamiento)
     
     entradaEntrenamientoNorm = normalizarDatosEntradas(entradaEntrenamiento, aodMay2, 0)
-    entradaTestNorm = normalizarDatosEntradas(entradaTest, aodMay2, NUM * 0.8)
+    entradaTestNorm = normalizarDatosEntradas(entradaTest, aodMay2, numeroEntrenamiento)
     salidaEntrenamientoNorm = normalizarDatosSalida(salidaEntrenamiento)
     salidaTestNorm = normalizarDatosSalida(salidaTest)
+
 
     modeloEntrenado = crearModelo(entradaEntrenamientoNorm, salidaEntrenamientoNorm, entradaTestNorm, salidaTestNorm)
 
