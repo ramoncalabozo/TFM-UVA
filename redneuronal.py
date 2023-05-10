@@ -47,9 +47,10 @@ def recolectarDatos(archivoDataSet):
     salidaEntrenamiento = []
     entradaTest = []
     salidaTest = []
+    aodMay2 = []
     fileData = open(archivoDataSet, "r")
     content = fileData.readlines()
-
+    cicle = 0
     j = 1
     for line in content:
         entrada = []
@@ -58,7 +59,7 @@ def recolectarDatos(archivoDataSet):
         divisionEntradaSalida = line.split(" --- ")
         parametrosEntrada = divisionEntradaSalida[0].split(" ")
         parametrosSalida = divisionEntradaSalida[1].split(" ")
-        
+
         if float(parametrosSalida[0]) < 2:
             for i in range(7):
                 entrada.append(float(parametrosEntrada[i]))
@@ -72,17 +73,19 @@ def recolectarDatos(archivoDataSet):
             else:
                 entradaTest.append(entrada)
                 salidaTest.append(salida)
-            
             j = j + 1  
+        else:
+            aodMay2.append(int(cicle))
+        cicle = cicle + 1
 
     entradaEntrenamiento = np.array(entradaEntrenamiento)
     salidaEntrenamiento = np.array(salidaEntrenamiento)
     entradaTest = np.array(entradaTest)
     salidaTest = np.array(salidaTest)
-    return entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTest
+    return entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTest, aodMay2
 
 
-def normalizarDatosEntradas(entrada):
+def normalizarDatosEntradas(entrada, aodMay2, indice):
     radioComponent1Max = 0.7
     sigmaComponent1Max = 3.0
     esfericidadComponent1Max = 100
@@ -120,6 +123,10 @@ def normalizarDatosEntradas(entrada):
 
     j = 0
     for i in range(len(entrada)): 
+        
+        if indice in aodMay2:
+            j += 1
+
         if j <= 3:
             entrada[i][0] = entrada[i][0] / radioComponent1Max
             entrada[i][1] = entrada[i][1] / sigmaComponent1Max
@@ -165,13 +172,14 @@ def normalizarDatosEntradas(entrada):
                 j = -1                    
         
         j += 1
-    
+        indice += 1
+
     return entrada
 
 
 def normalizarDatosSalida(salida):
     aodMax = 2
-    for i in range(len(salida)):        
+    for i in range(len(salida)):       
        salida[i][0] = salida[i][0] / aodMax
        
     return salida
@@ -179,10 +187,12 @@ def normalizarDatosSalida(salida):
 
 if __name__ == '__main__':
     archivoDataSet = "dataset.txt"
-    entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTest = recolectarDatos(archivoDataSet)
-    entradaEntrenamientoNorm = normalizarDatosEntradas(entradaEntrenamiento)
-    entradaTestNorm = normalizarDatosEntradas(entradaTest)
+    entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTest, aodMay2 = recolectarDatos(archivoDataSet)
+    
+    entradaEntrenamientoNorm = normalizarDatosEntradas(entradaEntrenamiento, aodMay2, 0)
+    entradaTestNorm = normalizarDatosEntradas(entradaTest, aodMay2, NUM * 0.8)
     salidaEntrenamientoNorm = normalizarDatosSalida(salidaEntrenamiento)
     salidaTestNorm = normalizarDatosSalida(salidaTest)
+
     modeloEntrenado = crearModelo(entradaEntrenamientoNorm, salidaEntrenamientoNorm, entradaTestNorm, salidaTestNorm)
 
