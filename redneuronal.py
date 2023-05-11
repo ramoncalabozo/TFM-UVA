@@ -44,7 +44,6 @@ def recolectarDatos(archivoDataSet, numEntrenamiento):
     salidaEntrenamiento = []
     entradaTest = []
     salidaTest = []
-    aodMay2 = []
     fileData = open(archivoDataSet, "r")
     content = fileData.readlines()
     cicle = 0
@@ -64,25 +63,27 @@ def recolectarDatos(archivoDataSet, numEntrenamiento):
             for i in range(3):
                 salida.append(float(parametrosSalida[i]))
 
-            if j < numEntrenamiento:
+            if j <= numEntrenamiento:
+                entrada = normalizarDatosEntradas(entrada, cicle)
                 entradaEntrenamiento.append(entrada)
+                salida = normalizarDatosSalida(salida)
                 salidaEntrenamiento.append(salida)
             else:
+                entrada = normalizarDatosEntradas(entrada, cicle)
                 entradaTest.append(entrada)
+                salida = normalizarDatosSalida(salida)
                 salidaTest.append(salida)
             j = j + 1  
-        else:
-            aodMay2.append(int(cicle))
         cicle = cicle + 1
 
     entradaEntrenamiento = np.array(entradaEntrenamiento)
     salidaEntrenamiento = np.array(salidaEntrenamiento)
     entradaTest = np.array(entradaTest)
     salidaTest = np.array(salidaTest)
-    return entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTest, aodMay2
+    return entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTest
 
 
-def normalizarDatosEntradas(entrada, aodMay2, indice):
+def normalizarDatosEntradas(entrada, cicle):
     radioComponent1Max = 0.7
     sigmaComponent1Max = 3.0
     esfericidadComponent1Max = 100
@@ -118,66 +119,57 @@ def normalizarDatosEntradas(entrada, aodMay2, indice):
     L3Max = 2.5
     L4Max = 2.5
 
-    j = 0
-    for i in range(len(entrada)): 
-        
-        if indice in aodMay2:
-            j += 1
-
-        if j <= 3:
-            entrada[i][0] = entrada[i][0] / radioComponent1Max
-            entrada[i][1] = entrada[i][1] / sigmaComponent1Max
-            entrada[i][2] = entrada[i][2] / esfericidadComponent1Max
-            entrada[i][3] = entrada[i][3] / concentracionComponent1Max
-            if j == 0:
-                entrada[i][4] = entrada[i][4] / L1Max
-                entrada[i][5] = entrada[i][5] / indRefReal_mode1_L1Max
-                entrada[i][6] = entrada[i][6] / indRefImag_mode1_L1Max
-            if j == 1:
-                entrada[i][4] = entrada[i][4] / L2Max
-                entrada[i][5] = entrada[i][5] / indRefReal_mode1_L2Max
-                entrada[i][6] = entrada[i][6] / indRefImag_mode1_L2Max
-            if j == 2:
-                entrada[i][4] = entrada[i][4] / L3Max
-                entrada[i][5] = entrada[i][5] / indRefReal_mode1_L3Max
-                entrada[i][6] = entrada[i][6] / indRefImag_mode1_L3Max
-            if j == 3:
-                entrada[i][4] = entrada[i][4] / L4Max
-                entrada[i][5] = entrada[i][5] / indRefReal_mode1_L4Max
-                entrada[i][6] = entrada[i][6] / indRefImag_mode1_L4Max
-        else:
-            entrada[i][0] = entrada[i][0] / radioComponent2Max
-            entrada[i][1] = entrada[i][1] / sigmaComponent2Max
-            entrada[i][2] = entrada[i][2] / esfericidadComponent2Max
-            entrada[i][3] = entrada[i][3] / concentracionComponent2Max
-            if j == 4:
-                entrada[i][4] = entrada[i][4] / L1Max
-                entrada[i][5] = entrada[i][5] / indRefReal_mode2_L1Max
-                entrada[i][6] = entrada[i][6] / indRefImag_mode2_L1Max
-            if j == 5:
-                entrada[i][4] = entrada[i][4] / L2Max
-                entrada[i][5] = entrada[i][5] / indRefReal_mode2_L2Max
-                entrada[i][6] = entrada[i][6] / indRefImag_mode2_L2Max
-            if j == 6:
-                entrada[i][4] = entrada[i][4] / L3Max
-                entrada[i][5] = entrada[i][5] / indRefReal_mode2_L3Max
-                entrada[i][6] = entrada[i][6] / indRefImag_mode2_L3Max
-            if j == 7:
-                entrada[i][4] = entrada[i][4] / L4Max
-                entrada[i][5] = entrada[i][5] / indRefReal_mode2_L4Max
-                entrada[i][6] = entrada[i][6] / indRefImag_mode2_L4Max
-                j = -1                    
-        
-        j += 1
-        indice += 1
+    cicle = cicle % 8
+    
+    if cicle <= 3:
+        entrada[0] = entrada[0] / radioComponent1Max
+        entrada[1] = entrada[1] / sigmaComponent1Max
+        entrada[2] = entrada[2] / esfericidadComponent1Max
+        entrada[3] = entrada[3] / concentracionComponent1Max
+        if cicle == 0:
+            entrada[4] = entrada[4] / L1Max
+            entrada[5] = entrada[5] / indRefReal_mode1_L1Max
+            entrada[6] = entrada[6] / indRefImag_mode1_L1Max
+        if cicle == 1:
+            entrada[4] = entrada[4] / L2Max
+            entrada[5] = entrada[5] / indRefReal_mode1_L2Max
+            entrada[6] = entrada[6] / indRefImag_mode1_L2Max
+        if cicle == 2:
+            entrada[4] = entrada[4] / L3Max
+            entrada[5] = entrada[5] / indRefReal_mode1_L3Max
+            entrada[6] = entrada[6] / indRefImag_mode1_L3Max
+        if cicle == 3:
+            entrada[4] = entrada[4] / L4Max
+            entrada[5] = entrada[5] / indRefReal_mode1_L4Max
+            entrada[6] = entrada[6] / indRefImag_mode1_L4Max
+    else:
+        entrada[0] = entrada[0] / radioComponent2Max
+        entrada[1] = entrada[1] / sigmaComponent2Max
+        entrada[2] = entrada[2] / esfericidadComponent2Max
+        entrada[3] = entrada[3] / concentracionComponent2Max
+        if cicle == 4:
+            entrada[4] = entrada[4] / L1Max
+            entrada[5] = entrada[5] / indRefReal_mode2_L1Max
+            entrada[6] = entrada[6] / indRefImag_mode2_L1Max
+        if cicle == 5:
+            entrada[4] = entrada[4] / L2Max
+            entrada[5] = entrada[5] / indRefReal_mode2_L2Max
+            entrada[6] = entrada[6] / indRefImag_mode2_L2Max
+        if cicle == 6:
+            entrada[4] = entrada[4] / L3Max
+            entrada[5] = entrada[5] / indRefReal_mode2_L3Max
+            entrada[6] = entrada[6] / indRefImag_mode2_L3Max
+        if cicle == 7:
+            entrada[4] = entrada[4] / L4Max
+            entrada[5] = entrada[5] / indRefReal_mode2_L4Max
+            entrada[6] = entrada[6] / indRefImag_mode2_L4Max                   
 
     return entrada
 
 
 def normalizarDatosSalida(salida):
-    aodMax = 2
-    for i in range(len(salida)):       
-       salida[i][0] = salida[i][0] / aodMax
+    aodMax = 2      
+    salida[0] = salida[0] / aodMax
        
     return salida
 
@@ -185,17 +177,16 @@ def normalizarDatosSalida(salida):
 if __name__ == '__main__':
     archivoDataSet = "dataset.txt"
     
-    numeroEntrenamiento = 372360 - 33995  # Numero de registros reales -  el numero de registros con aod < 2
+    numeroEntrenamiento = (372360 - 33995) * 0.8  # Numero de registros reales -  el numero de registros con aod < 2
     modulo = numeroEntrenamiento % 8
-    numEntrenamiento = numeroEntrenamiento + (8 - modulo)
+    numeroEntrenamiento = numeroEntrenamiento + (8 - modulo)
+
+    entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTest = recolectarDatos(archivoDataSet, numeroEntrenamiento)
     
-    entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTest, aodMay2 = recolectarDatos(archivoDataSet, numeroEntrenamiento)
-    
-    entradaEntrenamientoNorm = normalizarDatosEntradas(entradaEntrenamiento, aodMay2, 0)
+    """ entradaEntrenamientoNorm = normalizarDatosEntradas(entradaEntrenamiento, aodMay2, 0)
     entradaTestNorm = normalizarDatosEntradas(entradaTest, aodMay2, numeroEntrenamiento)
     salidaEntrenamientoNorm = normalizarDatosSalida(salidaEntrenamiento)
     salidaTestNorm = normalizarDatosSalida(salidaTest)
-
-
-    modeloEntrenado = crearModelo(entradaEntrenamientoNorm, salidaEntrenamientoNorm, entradaTestNorm, salidaTestNorm)
+ """
+    modeloEntrenado = crearModelo(entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTest)
 
