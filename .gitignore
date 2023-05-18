@@ -5,3 +5,5 @@ dataset.txt
 resultados/
 ERRORES
 erroresGrasp.txt
+log_model.txt
+MejorVersionModelo.h5
