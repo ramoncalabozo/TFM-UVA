@@ -82,7 +82,7 @@ def crearModelo(entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTe
     r2=r[0,1]*r[1,0]
     
     plt.plot([0, 1],[p[0]*0+p[1],p[0]*1+p[1]],'k')
-    plt.text(0, 1, 'y='+str(np.round(p[1]*1000)/1000)+'+'+str(np.round(p[0]*1000)/1000)+'x', fontsize = 12)
+    plt.text(0, 2, 'y='+str(np.round(p[1]*1000)/1000)+'+'+str(np.round(p[0]*1000)/1000)+'x', fontsize = 12)
     plt.text(0, 0.9, '$r^2$='+str(np.round(r2*1000)/1000), fontsize = 12)
     plt.show()
 
@@ -140,8 +140,10 @@ def recolectarDatos(archivoDataSet, numEntrenamiento):
     salidaEntrenamiento = []
     entradaTest = []
     salidaTest = []
+
     fileData = open(archivoDataSet, "r")
     content = fileData.readlines()
+
     cicle = 0
     j = 1
     for line in content:
@@ -177,7 +179,6 @@ def recolectarDatos(archivoDataSet, numEntrenamiento):
     entradaTest = np.array(entradaTest)
     salidaTest = np.array(salidaTest)
     return entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTest
-
 
 def normalizarDatosEntradas(entrada, cicle):
     radioComponent1Max = 0.7
@@ -262,13 +263,101 @@ def normalizarDatosEntradas(entrada, cicle):
 
     return entrada
 
-
 def normalizarDatosSalida(salida):
     aodMax = 2      
     salida[0] = salida[0] / aodMax
        
     return salida
 
+def calcularMetricasG(archivoDataSet):
+    fileData = open(archivoDataSet, "r")
+    content = fileData.readlines()
+    
+    parametroG_L1 = []
+    parametroG_L2 = []
+    parametroG_L3 = []
+    parametroG_L4 = []
+    
+    maxL1 = 0 
+    maxL2 = 0 
+    maxL3 = 0
+    maxL4 = 0
+   
+    minL1 = 1
+    minL2 = 1
+    minL3 = 1
+    minL4 = 1
+
+    cicle = 0
+
+    for line in content:
+        line = line.replace("\n","")
+        divisionEntradaSalida = line.split(" --- ")
+        parametrosSalida = divisionEntradaSalida[1].split(" ")
+
+        if (float(parametrosSalida[0]) < 2):
+            G = float(parametrosSalida[2])
+            
+            if (cicle == 0 or cicle == 4):
+                if (G > maxL1):
+                    maxL1 = G
+                if (G < minL1):
+                    minL1 = G
+                parametroG_L1.append(G)
+
+            if (cicle == 1 or cicle == 5):
+                if (G > maxL2):
+                    maxL2 = G
+                if (G < minL2):
+                    minL2 = G
+                parametroG_L2.append(G)
+
+
+            if (cicle == 2 or cicle == 6):
+                if (G > maxL3):
+                    maxL3 = G
+                if (G < minL3):
+                    minL3 = G
+                parametroG_L3.append(G)
+
+            if (cicle == 3 or cicle == 7):
+                if (G > maxL4):
+                    maxL4 = G
+                if (G < minL4):
+                    minL4 = G
+                parametroG_L4.append(G)
+                if (cicle == 7):
+                    cicle = -1
+
+        cicle += 1
+
+    media_L1 = np.mean(parametroG_L1)
+    mediana_L1 = np.median(parametroG_L1)
+    des_est_L1 = np.std(parametroG_L1)
+
+    media_L2 = np.mean(parametroG_L2)
+    mediana_L2 = np.median(parametroG_L2)
+    des_est_L2 = np.std(parametroG_L2)
+    
+    media_L3 = np.mean(parametroG_L3)
+    mediana_L3 = np.median(parametroG_L3)
+    des_est_L3 = np.std(parametroG_L3)
+    
+    media_L4 = np.mean(parametroG_L4)
+    mediana_L4 = np.median(parametroG_L4)
+    des_est_L4 = np.std(parametroG_L4)
+
+    print("media_L1: " + str(media_L1) + " mediana_L1: " + str(mediana_L1) + " des_est_L1: " +
+         str(des_est_L1) + " maxL1: " + str(maxL1) + " minL1: " + str(minL1))
+    
+    print("media_L2: " + str(media_L2) + " mediana_L2: " + str(mediana_L2) + " des_est_L2: " +
+         str(des_est_L2) + " maxL2: " + str(maxL2) + " minL2: " + str(minL2))
+    
+    print("media_L3: " + str(media_L3) + " mediana_L3: " + str(mediana_L3) + " des_est_L3: " +
+         str(des_est_L3) + " maxL3: " + str(maxL3) + " minL3: " + str(minL3))
+    
+    print("media_L4: " + str(media_L4) + " mediana_L4: " + str(mediana_L4) + " des_est_L4: " +
+         str(des_est_L4) + " maxL4: " + str(maxL4) + " minL4: " + str(minL4))
 
 if __name__ == '__main__':
     archivoDataSet = "dataset.txt"
@@ -276,13 +365,9 @@ if __name__ == '__main__':
     numeroEntrenamiento = (372360 - 33995) * 0.8  # Numero de registros reales -  el numero de registros con aod < 2
     modulo = numeroEntrenamiento % 8
     numeroEntrenamiento = numeroEntrenamiento + (8 - modulo)
-
     entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTest = recolectarDatos(archivoDataSet, numeroEntrenamiento)
     
-    """ entradaEntrenamientoNorm = normalizarDatosEntradas(entradaEntrenamiento, aodMay2, 0)
-    entradaTestNorm = normalizarDatosEntradas(entradaTest, aodMay2, numeroEntrenamiento)
-    salidaEntrenamientoNorm = normalizarDatosSalida(salidaEntrenamiento)
-    salidaTestNorm = normalizarDatosSalida(salidaTest)
- """
+    # calcularMetricasG(archivoDataSet)
+
     modeloEntrenado = crearModelo(entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTest)
 
