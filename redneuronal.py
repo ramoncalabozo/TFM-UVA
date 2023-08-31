@@ -343,8 +343,8 @@ if __name__ == '__main__':
     
     entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTest = recolectarDatos(archivoDataSet, numeroEntrenamiento)
     
-    entradaEntrenamiento = normalizarDatosEntradas(entradaEntrenamiento)
-    entradaTest = normalizarDatosEntradas(entradaTest)
+    # entradaEntrenamiento = normalizarDatosEntradas(entradaEntrenamiento)
+    # entradaTest = normalizarDatosEntradas(entradaTest)
 
 # QUITO LOS DATOS CON AODs MAYORES  DE 2
     entradaEntrenamiento=entradaEntrenamiento[salidaEntrenamiento[:,0]<2,:]
