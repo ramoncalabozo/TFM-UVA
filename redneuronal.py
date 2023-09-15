@@ -37,9 +37,9 @@ def pintarPredicciones(prediccion, salidaTest):
 
 # EL G
     plt.plot((salidaTest[:,2]),prediccion[:,2],'.')
-    plt.title('g')
-    plt.ylabel('$g_{pred}$')
-    plt.xlabel('$g_{ref}$')
+    plt.title('G')
+    plt.ylabel('$G_{pred}$')
+    plt.xlabel('$G_{ref}$')
     
     p=np.polyfit(salidaTest[:,2],prediccion[:,2],1) 
     r=np.corrcoef(salidaTest[:,2],prediccion[:,2])
@@ -73,30 +73,29 @@ def pintarDiferencias(diferenciaAOD, diferenciaSSA, diferenciaG):
 
     plt.plot((entradaTest[:,0])*escala[0],diferenciaAOD,'.')
     #plt.title('Radio')
-    plt.xlabel('Radio')
+    plt.xlabel('Radio (\u03BCm)')
     plt.ylabel('$AOD_{pred}$-$AOD_{ref}$')
     plt.show()
 
     plt.plot((entradaTest[:,1])*escala[1],diferenciaAOD,'.')
-    # plt.title('Concentracion')
-    plt.xlabel('Sigma')
+    plt.xlabel('\u03C3')
     plt.ylabel('$AOD_{pred}$-$AOD_{ref}$')
     plt.show()
 
     plt.plot((entradaTest[:,2])*escala[2],diferenciaAOD,'.')
     # plt.title('difAOD')
-    plt.xlabel('esfericiad')
+    plt.xlabel('Esfericiad')
     plt.ylabel('$AOD_{pred}$-$AOD_{ref}$')
     plt.show()
 
     plt.plot((entradaTest[:,3])*escala[3],diferenciaAOD,'.')
-    plt.xlabel('Concentracion')
+    plt.xlabel('Concentracion (ppm)')
     plt.ylabel('$AOD_{pred}$-$AOD_{ref}$')
     plt.show()
 
     plt.plot((entradaTest[:,4])*escala[4],diferenciaAOD,'.')
     #plt.title('difAOD')
-    plt.xlabel('longitud de onda')
+    plt.xlabel('Longitud de onda (\u03BCm)')
     plt.ylabel('$AOD_{pred}$-$AOD_{ref}$')
     plt.show()
 
@@ -116,30 +115,29 @@ def pintarDiferencias(diferenciaAOD, diferenciaSSA, diferenciaG):
 
     plt.plot((entradaTest[:,0])*escala[0],diferenciaSSA,'.')
     #plt.title('Radio')
-    plt.xlabel('Radio')
+    plt.xlabel('Radio (\u03BCm)')
     plt.ylabel('$SSA{pred}$-$SSA{ref}$')
     plt.show()
 
     plt.plot((entradaTest[:,1])*escala[1],diferenciaSSA,'.')
-    # plt.title('Concentracion')
-    plt.xlabel('Sigma')
+    plt.xlabel('\u03C3')
     plt.ylabel('$SSA{pred}$-$SSA{ref}$')
     plt.show()
 
     plt.plot((entradaTest[:,2])*escala[2],diferenciaSSA,'.')
     # plt.title('difAOD')
-    plt.xlabel('esfericiad')
+    plt.xlabel('Esfericiad')
     plt.ylabel('$SSA{pred}$-$SSA{ref}$')
     plt.show()
 
     plt.plot((entradaTest[:,3])*escala[3],diferenciaSSA,'.')
-    plt.xlabel('Concentracion')
+    plt.xlabel('Concentracion (ppm)')
     plt.ylabel('$SSA{pred}$-$SSA{ref}$')
     plt.show()
 
     plt.plot((entradaTest[:,4])*escala[4],diferenciaSSA,'.')
     #plt.title('difAOD')
-    plt.xlabel('longitud de onda')
+    plt.xlabel('Longitud de onda (\u03BCm)')
     plt.ylabel('$SSA{pred}$-$SSA{ref}$')
     plt.show()
 
@@ -152,38 +150,34 @@ def pintarDiferencias(diferenciaAOD, diferenciaSSA, diferenciaG):
     plt.xlabel('IMI')
     plt.ylabel('$SSA{pred}$-$SSA{ref}$')
     plt.show()
-
-
-
-
+    
     #G
 
     plt.plot((entradaTest[:,0])*escala[0],diferenciaG,'.')
     #plt.title('Radio')
-    plt.xlabel('Radio')
+    plt.xlabel('Radio (\u03BCm)')
     plt.ylabel('$G{pred}$-$G{ref}$')
     plt.show()
 
     plt.plot((entradaTest[:,1])*escala[1],diferenciaG,'.')
-    # plt.title('Concentracion')
-    plt.xlabel('Sigma')
+    plt.xlabel('\u03C3')
     plt.ylabel('$G{pred}$-$G{ref}$')
     plt.show()
 
     plt.plot((entradaTest[:,2])*escala[2],diferenciaG,'.')
     # plt.title('difAOD')
-    plt.xlabel('esfericiad')
+    plt.xlabel('Esfericiad')
     plt.ylabel('$G{pred}$-$G{ref}$')
     plt.show()
 
     plt.plot((entradaTest[:,3])*escala[3],diferenciaG,'.')
-    plt.xlabel('Concentracion')
+    plt.xlabel('Concentracion (ppm)')
     plt.ylabel('$G{pred}$-$G{ref}$')
     plt.show()
 
     plt.plot((entradaTest[:,4])*escala[4],diferenciaG,'.')
     #plt.title('difAOD')
-    plt.xlabel('longitud de onda')
+    plt.xlabel('Longitud de onda (\u03BCm)')
     plt.ylabel('$G{pred}$-$G{ref}$')
     plt.show()
 
@@ -229,9 +223,9 @@ def pintarHistogramas(diferenciaAOD, diferenciaSSA, diferenciaG, Nbins):
     
 # EL G    
     n=plt.hist(diferenciaG,bins=Nbins)
-    plt.title('g')
+    plt.title('G')
     plt.ylabel('N')
-    plt.xlabel('$g_{pred}$-$g_{ref}$')
+    plt.xlabel('$G_{pred}$-$G_{ref}$')
 
     MBE=np.mean(diferenciaG) 
     Md=np.median(diferenciaG) 
@@ -246,11 +240,8 @@ def crearModelo(entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTe
     model = keras.Sequential([
         # Capa oculta con 64 neuronas y función de activación tanh
         keras.layers.Dense(64, activation='tanh', input_shape=(7,)),
-        # Dropout con tasa de abandono del 20% NO!!
-        # keras.layers.Dropout(0.2),
         # Capa oculta con 64 neuronas y función de activación tanh
         keras.layers.Dense(64, activation='tanh'),
-        # keras.layers.Dropout(0.005),
         # Capa oculta con 64 neuronas y función de activación tanh
         keras.layers.Dense(64, activation='tanh'),
         # Capa densa de salida con 3 neuronas
@@ -263,7 +254,6 @@ def crearModelo(entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTe
 # NORMALIZO LOS PESOS AL PRIMER VALOR
     loss_weights=loss_weights/loss_weights[0]
 
-    # opt = keras.optimizers.SGD(learning_rate=0.001)
     opt ='adam'
     # Compilar el modelo con optimizador Adam y función de pérdida mse
     model.compile(optimizer=opt,
@@ -281,8 +271,7 @@ def crearModelo(entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTe
 
     # Entrenar el modelo con los datos de entrenamiento
     history = model.fit(entradaEntrenamiento, salidaEntrenamiento, epochs=500, batch_size=8, shuffle=True, validation_split=0.1,callbacks=[checkpoint,early_stopping, reduce_lr,csv_logger])
-    # history = model.fit(entradaEntrenamiento, salidaEntrenamiento, epochs=500, batch_size=512, shuffle=True, callbacks=[csv_logger]) #esto si se quiere sin validation_split ni callbacks
-    # model.save('VersionFinalModelo.h5') #esto si no se usa el validation_split entonces se guarda el ultimo modelo
+    model.save('VersionFinalModelo.h5') #esto si no se usa el validation_split entonces se guarda el ultimo modelo
 
     # VEO LOS RESULTADOS DEL MODELO
     print(history.history.keys())
@@ -291,7 +280,6 @@ def crearModelo(entradaEntrenamiento, salidaEntrenamiento, entradaTest, salidaTe
     
     print("\n\n\nEVALUACIÓN: \n")
     model=tf.keras.models.load_model( 'MejorVersionModelo.h5')
-    # model=tf.keras.models.load_model( 'VersionFinalModelo.h5') #este si se usa el modelo sin callbacks ni validation_split
      # Evaluar el modelo con los datos de test
     test_loss, test_acc = model.evaluate(entradaTest, salidaTest)
     print("Test_accuracy: " +  str(test_acc) + "\n" + "Test_losser " + str(test_loss))
